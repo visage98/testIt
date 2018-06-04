@@ -1,0 +1,23 @@
+<% layout('layout') %>
+
+<link rel="stylesheet" href="/css/landing.css">
+
+<div class="container-fluid site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <img class="img-circle img-responsive img-center center-block" src="<%= user.profile.picture%>" alt="Avatar">
+                </div>
+                <div class="col-md-12 offset-md-2 col-sm-12 profile_data" style="font-size: large;margin: 50px 0">
+                    <p><span style="font-weight: bold">Name : </span><%= user.profile.name%></p>
+                    <p><span style="font-weight: bold">E-mail : </span><%= user.email%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

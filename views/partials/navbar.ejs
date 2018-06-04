@@ -1,0 +1,34 @@
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Test It!</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+
+                <%if(!user){%>
+                <li><a href="/auth/facebook">Login with Facebook
+                    </a></li>
+                <%} else {%>
+                <li><a href="/">Home</a></li>
+                <li><a href="/create">Create Test</a></li>
+
+                <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><img class="img-circle img-center" src="<%= user.profile.picture%>" alt="Avatar" style="max-height: 25px;display: inline-block;">&nbsp;<span style="font-weight: bold;"><%=user.profile.name%></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</nav>

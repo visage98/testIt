@@ -1,0 +1,92 @@
+<% layout('layout')%>
+<style>
+    .remove:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
+<script src="/js/create.js"></script>
+<div class="container">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name"><h3>Test Name :</h3></label>
+                <input type="text" placeholder="Test Name" id="name" name="name" required>
+            </div>
+            <div class="col-md-3 col-md-offset-6">
+                <h3>Max Marks : <span id="max_marks">0</span></h3>
+                <h3>Max Time : <input required id="time" name="time" type="number" placeholder="in minutes" style="width: 50%"></h3>
+                <input name="max_marks" type="hidden" id="max_marks_input">
+                <input name="length" type="hidden" id="length" value="1">
+            </div>
+        </div>
+        <br>
+        <ol style="list-style-type: none">
+            <li>
+                <div class="row entry" id="question1">
+                    <div class="col-md-10">
+                        <label for="q1">Q1 : </label>
+                        <input required class="question" id="q1" type="text" name="q1" style="width: 100%">
+                        <br>
+                        <br>
+                        <span class="remove" style="float:right;font-weight: bold" onclick="removeQuestion(event)">Remove Question</span>
+                        <br>
+                        <button type="button" onclick="addOption(event)">Add Options</button>
+                        <hr>
+                        <ol class="options" id="options1">
+                            <li id="1"><input required type="text" name="q1_o1">&nbsp;<input type="checkbox" name="q1_c1"><span class="remove" style="float:right;" onclick="removeOption(event)">Remove</span></li>
+                        </ol>
+                        <h5 style="color: red;font-weight: 900" id="alert_q1" hidden>Please Add Options!</h5>
+                        <input type="hidden" id="q1_length" name="q1_length" value="1">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="m1">Marks : </label>
+                        <input required id="m1" type="number" name="m1" style="width: 100%" value="0" min="0" class="marks" onchange="calMarks()">
+                    </div>
+                </div>
+                <hr>
+            </li>
+        </ol>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" onclick="addQuestion(event)">Add Question</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="public">Public </label>
+                <input type="checkbox" id="public" name="public">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="passing_marks">Passing Marks : </label>
+                <input type="number" id="passing_marks" name="passing_marks" required min="0" max="0">
+            </div>
+            <div class="col-md-6">
+                <label for="end_date">End Date : </label>
+                <input type="date" id="end_date" name="end_date" required min="1899-01-01">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="passing_comments">Passing Comment : </label>
+                <input type="text" id="passing_comments" name="passing_comments" required style="width: 100%">
+            </div>
+            <div class="col-md-6">
+                <label for="failing_comments">Failing Comment : </label>
+                <input type="text" id="failing_comments" name="failing_comments" required style="width: 100%">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" id="submit_btn">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,37 @@
+<% layout('layout')%>
+<script src="/js/test.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 align="center"><%= test.name%></h3>
+            <h5 align="center">by <%= test.author.profile.name%></h5>
+            <h4 align="right">Maximum Marks : <%= test.maxMarks%></h4>
+            <h4 align="right">Maximum Time : <span id="clock"><%= test.maxTime%></span></h4>
+            <hr>
+        </div>
+        <ol style="list-style-type: none">
+            <% for(var i=0;i<test.qna.length;i++){%>
+            <li>
+                <div class="row" id="question1">
+                    <div class="col-md-10">
+                        <h4>Q<%= (i+1)%> :</h4><%= test.qna[i].question%>
+                        <hr>
+                        <ol class="options" id="options1">
+                            <% for(var j=0;j<test.qna[i].options.length;j++){%>
+                            <li id="1"><%= test.qna[i].options[j]%><input type="checkbox" name="q1_c1" style="float: right"></li>
+                            <%}%>
+                        </ol>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><%= test.qna[i].marks%>M</h4>
+                    </div>
+                </div>
+                <hr>
+            </li>
+            <%}%>
+        </ol>
+        <form method="post">
+            <button type="submit" id="submit_btn" class="btn btn-success" style="float: right">Submit</button>
+        </form>
+    </div>
+</div>

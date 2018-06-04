@@ -1,0 +1,43 @@
+<% layout('layout')%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>On going tests</h1>
+            <table class="table">
+                <thead class="mdb-color darken-3">
+                <tr class="text-white">
+                    <th>#</th>
+                    <th>Test Name</th>
+                    <th>Author</th>
+                    <th>End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <% for(var i=0;i<tests.length;i++){%>
+                    <th scope="row"><%= (i+1)%></th>
+                    <td><a href="/test?code=<%= tests[i].code%>"> <%= tests[i].name%></a></td>
+                    <td><%= tests[i].author%></td>
+                    <td><%= tests[i].endDate%></td>
+                    <%}%>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h1>Give test by code</h1>
+            <br>
+            <form method="post">
+                <label for="test_code">Test Code :</label>
+                <input id="test_code" name="test_code" placeholder="Test Code">
+                <button type="submit">Submit</button>
+                <% if(message.length>0) {%>
+                <div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <%= message%>
+                </div>
+                <%}%>
+            </form>
+        </div>
+    </div>
+</div>
