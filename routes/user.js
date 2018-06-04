@@ -71,7 +71,13 @@ router.get('/', function (req, res, next) {
 router.get('/profile',checkLoggedIn,function (req,res) {
     User.findOne({ _id: req.user._id }, function(err, user) {
         if (err) return next(err);
-        res.render('accounts/profile', { user: user });
+        Test.find({author : req.user._id},'name results passed', function (err, tests) {
+            if(err) return next(err);
+            res.render('accounts/profile', {
+                user: user,
+                tests : tests
+            });
+        });
     });
 });
 
@@ -181,9 +187,6 @@ router.post('/test', function (req, res, next) {
             marks : total,
             examinee : req.user
         });
-        test.save(function (err) {
-            if(err) return next(err);
-        });
         User.findOne({_id : req.user._id}, function (err, user) {
             if(err) return next(err);
             user.scores.push({
@@ -196,10 +199,14 @@ router.post('/test', function (req, res, next) {
                if(err) return next(err);
             });
         });
-        var comment = test.passingComments;
-        if(total<test.passingMarks){
-            comment = test.failingComments;
+        var comment = test.failingComments;
+        if(total>=test.passingMarks){
+            comment = test.passingComments;
+            test.passed = test.passed + 1;
         }
+        test.save(function (err) {
+            if(err) return next(err);
+        });
         res.send({
             total : total,
             message : comment

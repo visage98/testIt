@@ -18,6 +18,57 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1">
+                <table class="table table-sm table-bordered" style="text-align: left">
+                    <thead>
+                    <tr>
+                        <th colspan="4" style="text-align: center">Tests Given</th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Marks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(var i=0;i<user.scores.length;i++){%>
+                    <tr>
+                        <th scope="row"><%= (i+1)%></th>
+                        <td><%= user.scores[i].testName%></td>
+                        <td><%= user.scores[i].author%></td>
+                        <td><%= user.scores[i].marks%> / <%= user.scores[i].maxMarks%></td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4 col-md-offset-2">
+                <table class="table table-sm table-bordered"  style="text-align: left">
+                    <thead>
+                    <tr>
+                        <th colspan="4" style="text-align: center">Tests Hosted</th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Submissions</th>
+                        <th>Passed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(var i=0;i<tests.length;i++){%>
+                    <tr>
+                        <th scope="row"><%= (i+1)%></th>
+                        <td><%= tests[i].name%></td>
+                        <td><%= tests[i].results.length%></td>
+                        <td><%= tests[i].passed%></td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
 </div>

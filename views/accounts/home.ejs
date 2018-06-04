@@ -13,14 +13,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                <% for(var i=0;i<tests.length;i++){%>
                 <tr>
-                    <% for(var i=0;i<tests.length;i++){%>
                     <th scope="row"><%= (i+1)%></th>
                     <td><a href="/test?code=<%= tests[i].code%>"> <%= tests[i].name%></a></td>
                     <td><%= tests[i].author%></td>
                     <td><%= tests[i].endDate%></td>
-                    <%}%>
                 </tr>
+                <%}%>
                 </tbody>
             </table>
         </div>

@@ -21,7 +21,8 @@ let TestSchema = new Schema({
     results : [{
         marks : Number,
         examinee : {type : Schema.Types.ObjectId, ref : 'User'}
-    }]
+    }],
+    passed : {type : Number, default : 0}
 });
 
 module.exports = mongoose.model('Test', TestSchema);
