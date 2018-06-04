@@ -12,7 +12,13 @@ let UserSchema = new Schema({
     profile : {
         name : {type: String, default : ""},
         picture : {type: String, default:""}
-    }
+    },
+    scores : [{
+        testName : String,
+        author : String,
+        marks : Number,
+        maxMarks : Number
+    }]
 });
 
 UserSchema.pre('save', function (next) {

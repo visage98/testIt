@@ -153,4 +153,58 @@ router.get('/test', function (req, res, next) {
     return res.render('accounts/login');
 });
 
+router.post('/test', function (req, res, next) {
+    Test.findOne({code : req.body.test_code}).populate('author').exec(function (err, test) {
+        if(err) return next(err);
+        total=0;
+        for(var i=0;i<test.qna.length;i++){
+            var flag = true;
+            for(var j=0;j<test.qna[i].correct.length;j++){
+                if(test.qna[i].correct[j]==true){
+                    if(req.body["q"+(i+1)+"_c"+(j+1)]===undefined){
+                        flag=false;
+                        break;
+                    }
+                }
+                if(test.qna[i].correct[j]==false){
+                    if(req.body["q"+(i+1)+"_c"+(j+1)]){
+                        flag=false;
+                        break;
+                    }
+                }
+            }
+            if(flag==true){
+                total+=parseInt(req.body["q"+(i+1)+"_marks"]);
+            }
+        }
+        test.results.push({
+            marks : total,
+            examinee : req.user
+        });
+        test.save(function (err) {
+            if(err) return next(err);
+        });
+        User.findOne({_id : req.user._id}, function (err, user) {
+            if(err) return next(err);
+            user.scores.push({
+                testName : test.name,
+                author : test.author.profile.name,
+                marks : total,
+                maxMarks : test.maxMarks
+            });
+            user.save(function (err) {
+               if(err) return next(err);
+            });
+        });
+        var comment = test.passingComments;
+        if(total<test.passingMarks){
+            comment = test.failingComments;
+        }
+        res.send({
+            total : total,
+            message : comment
+        });
+    });
+});
+
 module.exports = router;

@@ -17,6 +17,10 @@ let TestSchema = new Schema({
         options : [],
         correct : [],
         marks : Number
+    }],
+    results : [{
+        marks : Number,
+        examinee : {type : Schema.Types.ObjectId, ref : 'User'}
     }]
 });
 

@@ -12,7 +12,7 @@ $(function () {
         }
         if(time == 0) {
             clearInterval(x);
-            //$('#submit_btn').click();
+            $('#submit_btn').click();
         }
     }, 1000);
 });
