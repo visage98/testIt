@@ -1,12 +1,12 @@
 module.exports = {
     port : 4000,
-    database : "mongodb://root:abc123@ds245240.mlab.com:45240/testit",
+    database : "*insert mongodb database link*",
     secretKey : "Secret",
 
     facebook:{
-        clientID        : process.env.FACEBOOK_ID || '1620457874720007',
-        clientSecret    : process.env.FACEBOOK_SECRET || 'a312ba65f5c9f680d6b04366474b4157',
+        clientID        : process.env.FACEBOOK_ID || '*FB app client id*',
+        clientSecret    : process.env.FACEBOOK_SECRET || '*FB app client secret*',
         profileFields   : ['emails','displayName'],
-        callbackURL     : 'https://testitonline.herokuapp.com/auth/facebook/callback'
+        callbackURL     : '/auth/facebook/callback'
     }
 }
