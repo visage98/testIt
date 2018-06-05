@@ -48,11 +48,17 @@ router.get('/', function (req, res, next) {
                 }
                 return result;
             }, []);
-            if(req.query.message=="on"){
+            if(req.query.message=="end"){
                 return res.render('accounts/home', {
                     user: req.user,
                     tests : tests,
-                    message : "End Date Gone"
+                    message : "End Date Gone."
+                });
+            } else if(req.query.message=="given"){
+                return res.render('accounts/home', {
+                    user: req.user,
+                    tests : tests,
+                    message : "Test Already Given."
                 });
             }
             else {
@@ -90,6 +96,7 @@ router.get('/create',checkLoggedIn, function (req, res , next) {
 });
 
 router.post('/create', function (req, res, next) {
+    console.log(req.body);
     let test = new Test();
     test.name  = req.body.name;
     test.maxTime = req.body.time;
@@ -147,15 +154,49 @@ router.post('/', function (req, res, next) {
 router.get('/test', function (req, res, next) {
     if(req.user){
         Test.findOne({code : req.query.code}).populate('author').exec(function (err, test) {
-            if(err)
-                return next(err);
-            if(new Date(test.endDate)<new Date()){
-                return res.redirect("/?message=on");
-            } else
-                return res.render('accounts/test', {
-                    test : test,
-                    user : req.user
-                });
+            async.waterfall([
+                function (callback) {
+                    if(err)
+                        return next(err);
+                    if(new Date(test.endDate)<new Date()){
+                        return res.redirect("/?message=end");
+                        callback(null,"done");
+                    } else{
+                        callback(null,"");
+                    }
+                },
+                function (done,callback) {
+                    if(done==="done"){
+                        callback("done");
+                    } else{
+                        let flag=true;
+                        User.findOne({_id : req.user._id},'scores', function (err, user) {
+                            if(err) return next(err);
+                            else{
+                                for(var i=0;i<user.scores.length;i++){
+                                    if(user.scores[i].testCode==test.code){
+                                        flag=false;
+                                        return res.redirect("/?message=given");
+                                        callback(null,"done");
+                                        break;
+                                    }
+                                }
+                                if(flag){
+                                    callback(null,"");
+                                }
+                            }
+                        });
+                    }
+                },
+                function (done) {
+                    if(done===""){
+                        return res.render('accounts/test', {
+                            test : test,
+                            user : req.user
+                        });
+                    }
+                }
+            ]);
         });
     } else
         return res.render('accounts/login');
@@ -192,6 +233,7 @@ router.post('/test', function (req, res, next) {
         User.findOne({_id : req.user._id}, function (err, user) {
             if(err) return next(err);
             user.scores.push({
+                testCode : test.code,
                 testName : test.name,
                 author : test.author.profile.name,
                 marks : total,
@@ -223,11 +265,14 @@ router.get('/leaderboard', function (req, res, next) {
     page = parseInt(req.query.page);
     Test.findOne({code : code}, 'name code author results').populate('author results.examinee').exec(function (err, test) {
         if(err) return next(err);
-        totalPages = (test.results.length/10)+1;
+        totalPages = (test.results.length/11)+1;
         result = [];
         for(var i=(page-1)*10;i<page*10&&i<test.results.length;i++){
             result.push(test.results[i]);
         }
+        result.sort(function (a, b) {
+            return b.marks-a.marks;
+        });
         return res.render('mains/leaderboard',{
             name : test.name,
             code : test.code,

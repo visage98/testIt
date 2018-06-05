@@ -14,6 +14,7 @@ let UserSchema = new Schema({
         picture : {type: String, default:""}
     },
     scores : [{
+        testCode : String,
         testName : String,
         author : String,
         marks : Number,

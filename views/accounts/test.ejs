@@ -17,11 +17,11 @@
                 <li>
                     <div class="row" id="question<%= (i+1)%>">
                         <div class="col-md-10">
-                            <h4>Q<%= (i+1)%> :</h4><%= test.qna[i].question%>
+                            <h4>Q<%= (i+1)%> :</h4><p style="white-space: pre-line"><%= test.qna[i].question%></p>
                             <hr>
                             <ol class="options" id="options1">
                                 <% for(var j=0;j<test.qna[i].options.length;j++){%>
-                                <li id="<% (j+1)%>"><%= test.qna[i].options[j]%><input type="checkbox" name="q<%= (i+1)%>_c<%= (j+1)%>" style="float: right"></li>
+                                <li id="<% (j+1)%>"><span style="white-space: pre-line"><%= test.qna[i].options[j]%></span><input type="checkbox" name="q<%= (i+1)%>_c<%= (j+1)%>" style="float: right"></li>
                                 <%}%>
                             </ol>
                         </div>

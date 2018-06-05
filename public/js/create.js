@@ -38,7 +38,7 @@ function addOption(event) {
     q = $(event.target)[0].parentNode.children[1].id;
     li = document.createElement("li");
     li.setAttribute('id' , e);
-    li.innerHTML = `<input required type="text" name="${q}_o${e}">&nbsp;<input type="checkbox" name="${q}_c${e}"><span class="remove" style="float:right" onclick="removeOption(event)">Remove</span>`;
+    li.innerHTML = `<textarea required type="text" name="${q}_o${e}" rows="1" cols="50" style="width: 80%"></textarea> &nbsp;<input type="checkbox" name="${q}_c${e}"><span class="remove" style="float:right" onclick="removeOption(event)">Remove</span>`;
     $(event.target)[0].parentNode.children[8].appendChild(li);
     $("#alert_"+q).prop("hidden", true);
     $("#"+q+"_length").val(parseInt($("#"+q+"_length").val())+1);
@@ -52,8 +52,8 @@ function removeOption(event) {
     for(var i=0;i<ol.childElementCount;i++){
         if(i>index){
             ol.children[i].id = parseInt(ol.children[i].id)-1;
-            ol.children[i].children[0].setAttribute('name', q+"o"+(ol.children[i].id));
-            ol.children[i].children[1].setAttribute('name', q+"c"+(ol.children[i].id));
+            ol.children[i].children[0].setAttribute('name', q+"_o"+(ol.children[i].id));
+            ol.children[i].children[1].setAttribute('name', q+"_c"+(ol.children[i].id));
         }
     }
     ol.removeChild(ol.children[index]);
@@ -80,7 +80,7 @@ function addQuestion(event) {
         <div class="row entry" id="question${newId}">
                 <div class="col-md-10">
                     <label for="q${newId}">Q${newId} : </label>
-                    <input required class="question" id="q${newId}" type="text" name="q${newId}" style="width: 100%">
+                    <textarea required class="question" id="q${newId}" type="text" name="q${newId}" style="width: 100%" rows="4"></textarea>
                     <br>
                     <br>
                     <span class="remove" style="float:right;font-weight: bold" onclick="removeQuestion(event)">Remove Question</span>
@@ -88,7 +88,7 @@ function addQuestion(event) {
                     <button type="button" onclick="addOption(event)">Add Options</button>
                     <hr>
                     <ol class="options" id="options${newId}">
-                        <li id="1"><input required type="text" name="q${newId}_o1">&nbsp;<input type="checkbox" name="q${newId}_c1"><span class="remove" style="float:right;" onclick="removeOption(event)">Remove</span></li>
+                        <li id="1"><textarea required type="text" name="q${newId}_o1" rows="1" style="width: 80%;"></textarea> &nbsp;<input type="checkbox" name="q${newId}_c1"><span class="remove" style="float:right;" onclick="removeOption(event)">Remove</span></li>
                     </ol>
                     <h5 style="color: red;font-weight: 900" id="alert_q${newId}" hidden>Please Add Options!</h5>
                     <input type="hidden" id="q${newId}_length" name="q${newId}_length" value="1">
