@@ -1,48 +1,15 @@
 <% layout('layout') %>
 
-<link rel="stylesheet" href="/css/home.css">
 <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 
 <div class="jumbotron" id="navbar-gap">
     <div class="container">
         <div class="heading text-center">
             <h1> Test It!</h1>
-            <p>Manage Your Budget in a new way.</p>
-            <%if(!user){%>
-            <a class="btn btn-success btn-lg" href="/signup" role="button">Signup &raquo;</a>
-            &nbsp;
-            <a class="btn btn-success btn-lg" href="/login" role="button">Login &raquo;</a>
+            <p>A new way of taking tests.</p>
+            <%if(!user){%>            &nbsp;
+            <a class="btn btn-success btn-lg" href="/auth/facebook" role="button">Login &raquo;</a>
             <%}%>
         </div>
     </div>
-</div>
-<br>
-<br><x></x>
-<br>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="tcb-quote-carousel">
-                <div class="quote"><i class=" fa fa-quote-left fa-4x"></i></div>
-                <div class="carousel slide carousel-fade" id="fade-quote-carousel" data-ride="carousel" data-interval="3000">
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <div class="profile-circle"><img class="img-responsive " src="https://s3.amazonaws.com/uifaces/faces/twitter/mantia/128.jpg" alt=""></div>
-                            <blockquote>
-                                <p>Believe in yourself! Have faith in your abilities! Without a humble but reasonable confidence in your own powers you cannot be successful or happy.</p>
-                            </blockquote>
-                        </div>
-                        <div class="item">
-                            <div class="profile-circle"><img class="img-responsive " src="https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg" alt=""></div>
-                            <blockquote>
-                                <p>Where there is a will, there is a way. If there is a chance in a million that you can do something, anything, to keep what you want from ending, do it. Pry the door open or, if need be, wedge your foot in that door and keep it open..</p>
-                            </blockquote>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
 </div>

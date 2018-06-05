@@ -134,7 +134,9 @@ router.post('/create', function (req, res, next) {
         if(err){
             return next(err);
         }
-        return res.send("Test Code : "+test.code);
+        return res.render('accounts/afterCreate', {
+            code : test.code
+        });
     });
 });
 
@@ -156,7 +158,7 @@ router.get('/test', function (req, res, next) {
                 });
         });
     } else
-    return res.render('accounts/login');
+        return res.render('accounts/login');
 });
 
 router.post('/test', function (req, res, next) {
@@ -196,7 +198,7 @@ router.post('/test', function (req, res, next) {
                 maxMarks : test.maxMarks
             });
             user.save(function (err) {
-               if(err) return next(err);
+                if(err) return next(err);
             });
         });
         var comment = test.failingComments;
@@ -207,9 +209,31 @@ router.post('/test', function (req, res, next) {
         test.save(function (err) {
             if(err) return next(err);
         });
-        res.send({
+        return res.render('accounts/result', {
             total : total,
-            message : comment
+            message : comment,
+            code : test.code,
+            maxMarks: test.maxMarks
+        });
+    });
+});
+
+router.get('/leaderboard', function (req, res, next) {
+    code = req.query.code;
+    page = parseInt(req.query.page);
+    Test.findOne({code : code}, 'name code author results').populate('author results.examinee').exec(function (err, test) {
+        if(err) return next(err);
+        totalPages = (test.results.length/10)+1;
+        result = [];
+        for(var i=(page-1)*10;i<page*10&&i<test.results.length;i++){
+            result.push(test.results[i]);
+        }
+        return res.render('mains/leaderboard',{
+            name : test.name,
+            code : test.code,
+            author : test.author.profile.name,
+            results : result,
+            pages : parseInt(totalPages)
         });
     });
 });

@@ -10,6 +10,7 @@
                     <th>Test Name</th>
                     <th>Author</th>
                     <th>End Date</th>
+                    <th>Leaderboard</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,6 +20,7 @@
                     <td><a href="/test?code=<%= tests[i].code%>"> <%= tests[i].name%></a></td>
                     <td><%= tests[i].author%></td>
                     <td><%= tests[i].endDate%></td>
+                    <td><a href="/leaderboard?code=<%= tests[i].code%>&page=1">Here</a></td>
                 </tr>
                 <%}%>
                 </tbody>
