@@ -283,4 +283,7 @@ router.get('/leaderboard', function (req, res, next) {
     });
 });
 
+router.get('/privacypolicy', function (req, res, next) {
+    return res.render('mains/privacy');
+});
 module.exports = router;
